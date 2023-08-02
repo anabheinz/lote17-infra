@@ -1,0 +1,1965 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/IDTRECHO_1.js"></script>
+        <script src="data/SEGMENTOS_2.js"></script>
+        <script src="data/FAIXAADICIONAL_3.js"></script>
+        <script src="data/MARGINALEXISTENTES_4.js"></script>
+        <script src="data/PLATAFORMAEXISTENTE_5.js"></script>
+        <script src="data/MARGINALNOVOS_6.js"></script>
+        <script src="data/RAMPAEXISTENTES_7.js"></script>
+        <script src="data/MELHORAMENTODERAIO_8.js"></script>
+        <script src="data/OAE_9.js"></script>
+        <script src="data/INTERSEES_10.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-17.812217226673265,-54.007265288254125],[-9.76239028790319,-39.86422569693899]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_IDTRECHO_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_segmento'] !== null ? autolinker.link(feature.properties['id_segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['segmento'] !== null ? autolinker.link(feature.properties['segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['br '] !== null ? autolinker.link(feature.properties['br '].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['uf'] !== null ? autolinker.link(feature.properties['uf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['estaca_ini'] !== null ? autolinker.link(feature.properties['estaca_ini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['estaca_fim'] !== null ? autolinker.link(feature.properties['estaca_fim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['produto'] !== null ? autolinker.link(feature.properties['produto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['versao'] !== null ? autolinker.link(feature.properties['versao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lote'] !== null ? autolinker.link(feature.properties['lote'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IDTRECHO_1_0(feature) {
+            switch(String(feature.properties['id_trecho'])) {
+                case '1':
+                    return {
+                pane: 'pane_IDTRECHO_1',
+                opacity: 1,
+                color: 'rgba(0,126,73,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_IDTRECHO_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 11.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_IDTRECHO_1',
+                opacity: 1,
+                color: 'rgba(1,255,213,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '4':
+                    return {
+                pane: 'pane_IDTRECHO_1',
+                opacity: 1,
+                color: 'rgba(255,86,1,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_IDTRECHO_1');
+        map.getPane('pane_IDTRECHO_1').style.zIndex = 401;
+        map.getPane('pane_IDTRECHO_1').style['mix-blend-mode'] = 'normal';
+        var layer_IDTRECHO_1 = new L.geoJson(json_IDTRECHO_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_IDTRECHO_1',
+            layerName: 'layer_IDTRECHO_1',
+            pane: 'pane_IDTRECHO_1',
+            onEachFeature: pop_IDTRECHO_1,
+            style: style_IDTRECHO_1_0,
+        });
+        bounds_group.addLayer(layer_IDTRECHO_1);
+        function pop_SEGMENTOS_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id_segmento</th>\
+                        <td>' + (feature.properties['id_segmento'] !== null ? autolinker.link(feature.properties['id_segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_trecho</th>\
+                        <td>' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">segmento</th>\
+                        <td>' + (feature.properties['segmento'] !== null ? autolinker.link(feature.properties['segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">br </th>\
+                        <td>' + (feature.properties['br '] !== null ? autolinker.link(feature.properties['br '].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">uf</th>\
+                        <td>' + (feature.properties['uf'] !== null ? autolinker.link(feature.properties['uf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">estaca_ini</th>\
+                        <td>' + (feature.properties['estaca_ini'] !== null ? autolinker.link(feature.properties['estaca_ini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">estaca_fim</th>\
+                        <td>' + (feature.properties['estaca_fim'] !== null ? autolinker.link(feature.properties['estaca_fim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">produto</th>\
+                        <td>' + (feature.properties['produto'] !== null ? autolinker.link(feature.properties['produto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">versao</th>\
+                        <td>' + (feature.properties['versao'] !== null ? autolinker.link(feature.properties['versao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lote</th>\
+                        <td>' + (feature.properties['lote'] !== null ? autolinker.link(feature.properties['lote'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SEGMENTOS_2_0(feature) {
+            switch(String(feature.properties['segmento'])) {
+                case 'Seg-01':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-02':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-03':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-04':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-05':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-06':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-07':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-08':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-09':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-10':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-11':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-12':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-13':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-14-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-14-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-15':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-16-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-16-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-17':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-18':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-19':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-20':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-21-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-21-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-22':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-23':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-24':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-25':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-26-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-26-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-27':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-28':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-29':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-30-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-30-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-31':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        function style_SEGMENTOS_2_1(feature) {
+            switch(String(feature.properties['segmento'])) {
+                case 'Seg-01':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(154,22,215,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-02':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(101,228,17,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-03':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(77,96,225,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-04':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(5,255,1,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-05':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(63,170,236,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-06':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(190,22,223,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-07':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(255,1,13,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-08':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(19,212,67,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-09':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(97,71,202,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-10':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(48,204,113,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-11':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(251,255,1,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-12':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(71,111,211,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-13':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(207,203,82,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-14-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(86,197,227,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-14-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(234,170,109,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-15':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(178,239,102,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-16-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(203,83,203,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-16-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(84,202,76,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-17':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(255,1,209,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-18':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(215,34,98,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-19':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(118,0,254,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-20':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(34,221,203,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-21-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(224,69,173,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-21-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(15,217,35,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-22':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(84,79,215,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-23':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(210,191,113,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-24':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(204,108,158,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-25':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(227,86,61,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-26-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(152,96,204,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-26-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(255,158,113,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-27':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(197,238,91,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-28':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(210,81,189,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-29':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(210,29,62,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-30-A':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(232,137,138,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-30-B':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(55,207,167,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Seg-31':
+                    return {
+                pane: 'pane_SEGMENTOS_2',
+                opacity: 1,
+                color: 'rgba(211,224,109,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_SEGMENTOS_2');
+        map.getPane('pane_SEGMENTOS_2').style.zIndex = 402;
+        map.getPane('pane_SEGMENTOS_2').style['mix-blend-mode'] = 'normal';
+        var layer_SEGMENTOS_2 = new L.geoJson.multiStyle(json_SEGMENTOS_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SEGMENTOS_2',
+            layerName: 'layer_SEGMENTOS_2',
+            pane: 'pane_SEGMENTOS_2',
+            onEachFeature: pop_SEGMENTOS_2,
+            styles: [style_SEGMENTOS_2_0,style_SEGMENTOS_2_1,]
+        });
+        bounds_group.addLayer(layer_SEGMENTOS_2);
+        map.addLayer(layer_SEGMENTOS_2);
+        function pop_FAIXAADICIONAL_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id_fx_add</th>\
+                        <td>' + (feature.properties['id_fx_add'] !== null ? autolinker.link(feature.properties['id_fx_add'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_trecho</th>\
+                        <td>' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">numero</th>\
+                        <td>' + (feature.properties['numero'] !== null ? autolinker.link(feature.properties['numero'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">br</th>\
+                        <td>' + (feature.properties['br'] !== null ? autolinker.link(feature.properties['br'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">uf</th>\
+                        <td>' + (feature.properties['uf'] !== null ? autolinker.link(feature.properties['uf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km_ini</th>\
+                        <td>' + (feature.properties['km_ini'] !== null ? autolinker.link(feature.properties['km_ini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km_fim</th>\
+                        <td>' + (feature.properties['km_fim'] !== null ? autolinker.link(feature.properties['km_fim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao_necessaria</th>\
+                        <td>' + (feature.properties['extensao_necessaria'] !== null ? autolinker.link(feature.properties['extensao_necessaria'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">velocidade_dimensionada</th>\
+                        <td>' + (feature.properties['velocidade_dimensionada'] !== null ? autolinker.link(feature.properties['velocidade_dimensionada'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">velocidade_projeto</th>\
+                        <td>' + (feature.properties['velocidade_projeto'] !== null ? autolinker.link(feature.properties['velocidade_projeto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lado</th>\
+                        <td>' + (feature.properties['lado'] !== null ? autolinker.link(feature.properties['lado'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">segmento</th>\
+                        <td>' + (feature.properties['segmento'] !== null ? autolinker.link(feature.properties['segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao_necessaria_segmento</th>\
+                        <td>' + (feature.properties['extensao_necessaria_segmento'] !== null ? autolinker.link(feature.properties['extensao_necessaria_segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao_existente_segmento</th>\
+                        <td>' + (feature.properties['extensao_existente_segmento'] !== null ? autolinker.link(feature.properties['extensao_existente_segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao_implantacao_segmento</th>\
+                        <td>' + (feature.properties['extensao_implantacao_segmento'] !== null ? autolinker.link(feature.properties['extensao_implantacao_segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">tipo</th>\
+                        <td>' + (feature.properties['tipo'] !== null ? autolinker.link(feature.properties['tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">observacao</th>\
+                        <td>' + (feature.properties['observacao'] !== null ? autolinker.link(feature.properties['observacao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">solucao</th>\
+                        <td>' + (feature.properties['solucao'] !== null ? autolinker.link(feature.properties['solucao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_FAIXAADICIONAL_3_0() {
+            return {
+                pane: 'pane_FAIXAADICIONAL_3',
+                opacity: 1,
+                color: 'rgba(0,118,254,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_FAIXAADICIONAL_3');
+        map.getPane('pane_FAIXAADICIONAL_3').style.zIndex = 403;
+        map.getPane('pane_FAIXAADICIONAL_3').style['mix-blend-mode'] = 'normal';
+        var layer_FAIXAADICIONAL_3 = new L.geoJson(json_FAIXAADICIONAL_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_FAIXAADICIONAL_3',
+            layerName: 'layer_FAIXAADICIONAL_3',
+            pane: 'pane_FAIXAADICIONAL_3',
+            onEachFeature: pop_FAIXAADICIONAL_3,
+            style: style_FAIXAADICIONAL_3_0,
+        });
+        bounds_group.addLayer(layer_FAIXAADICIONAL_3);
+        function pop_MARGINALEXISTENTES_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id_marginal</th>\
+                        <td>' + (feature.properties['id_marginal'] !== null ? autolinker.link(feature.properties['id_marginal'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_trecho</th>\
+                        <td>' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">via_marginal</th>\
+                        <td>' + (feature.properties['via_marginal'] !== null ? autolinker.link(feature.properties['via_marginal'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">br</th>\
+                        <td>' + (feature.properties['br'] !== null ? autolinker.link(feature.properties['br'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">uf</th>\
+                        <td>' + (feature.properties['uf'] !== null ? autolinker.link(feature.properties['uf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km_ini</th>\
+                        <td>' + (feature.properties['km_ini'] !== null ? autolinker.link(feature.properties['km_ini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km_fim</th>\
+                        <td>' + (feature.properties['km_fim'] !== null ? autolinker.link(feature.properties['km_fim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">segmento</th>\
+                        <td>' + (feature.properties['segmento'] !== null ? autolinker.link(feature.properties['segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lado</th>\
+                        <td>' + (feature.properties['lado'] !== null ? autolinker.link(feature.properties['lado'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao</th>\
+                        <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">observação </th>\
+                        <td>' + (feature.properties['observação '] !== null ? autolinker.link(feature.properties['observação '].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">solucao</th>\
+                        <td>' + (feature.properties['solucao'] !== null ? autolinker.link(feature.properties['solucao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MARGINALEXISTENTES_4_0() {
+            return {
+                pane: 'pane_MARGINALEXISTENTES_4',
+                opacity: 1,
+                color: 'rgba(84,176,74,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MARGINALEXISTENTES_4');
+        map.getPane('pane_MARGINALEXISTENTES_4').style.zIndex = 404;
+        map.getPane('pane_MARGINALEXISTENTES_4').style['mix-blend-mode'] = 'normal';
+        var layer_MARGINALEXISTENTES_4 = new L.geoJson(json_MARGINALEXISTENTES_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MARGINALEXISTENTES_4',
+            layerName: 'layer_MARGINALEXISTENTES_4',
+            pane: 'pane_MARGINALEXISTENTES_4',
+            onEachFeature: pop_MARGINALEXISTENTES_4,
+            style: style_MARGINALEXISTENTES_4_0,
+        });
+        bounds_group.addLayer(layer_MARGINALEXISTENTES_4);
+        function pop_PLATAFORMAEXISTENTE_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id_plat_exis</th>\
+                        <td>' + (feature.properties['id_plat_exis'] !== null ? autolinker.link(feature.properties['id_plat_exis'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_trecho</th>\
+                        <td>' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">segmento</th>\
+                        <td>' + (feature.properties['segmento'] !== null ? autolinker.link(feature.properties['segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">br</th>\
+                        <td>' + (feature.properties['br'] !== null ? autolinker.link(feature.properties['br'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">uf</th>\
+                        <td>' + (feature.properties['uf'] !== null ? autolinker.link(feature.properties['uf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km_ini</th>\
+                        <td>' + (feature.properties['km_ini'] !== null ? autolinker.link(feature.properties['km_ini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km_fim</th>\
+                        <td>' + (feature.properties['km_fim'] !== null ? autolinker.link(feature.properties['km_fim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao</th>\
+                        <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">relevo</th>\
+                        <td>' + (feature.properties['relevo'] !== null ? autolinker.link(feature.properties['relevo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">faixa_trafego_existente</th>\
+                        <td>' + (feature.properties['faixa_trafego_existente'] !== null ? autolinker.link(feature.properties['faixa_trafego_existente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">num_faixas_existente</th>\
+                        <td>' + (feature.properties['num_faixas_existente'] !== null ? autolinker.link(feature.properties['num_faixas_existente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">3_faixa_existente</th>\
+                        <td>' + (feature.properties['3_faixa_existente'] !== null ? autolinker.link(feature.properties['3_faixa_existente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">acostamento_direito_existente</th>\
+                        <td>' + (feature.properties['acostamento_direito_existente'] !== null ? autolinker.link(feature.properties['acostamento_direito_existente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">acostamento_esquerdo_existente</th>\
+                        <td>' + (feature.properties['acostamento_esquerdo_existente'] !== null ? autolinker.link(feature.properties['acostamento_esquerdo_existente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">separacao_via_existente</th>\
+                        <td>' + (feature.properties['separacao_via_existente'] !== null ? autolinker.link(feature.properties['separacao_via_existente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">distancia_duplicacao_existente</th>\
+                        <td>' + (feature.properties['distancia_duplicacao_existente'] !== null ? autolinker.link(feature.properties['distancia_duplicacao_existente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">faixa_trafego_adequacao</th>\
+                        <td>' + (feature.properties['faixa_trafego_adequacao'] !== null ? autolinker.link(feature.properties['faixa_trafego_adequacao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">tipo_pista_adequacao</th>\
+                        <td>' + (feature.properties['tipo_pista_adequacao'] !== null ? autolinker.link(feature.properties['tipo_pista_adequacao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">num_faixa_adequacao</th>\
+                        <td>' + (feature.properties['num_faixa_adequacao'] !== null ? autolinker.link(feature.properties['num_faixa_adequacao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">acostamento_direito_adequacao</th>\
+                        <td>' + (feature.properties['acostamento_direito_adequacao'] !== null ? autolinker.link(feature.properties['acostamento_direito_adequacao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">acostamento_esquerdo_adequacao</th>\
+                        <td>' + (feature.properties['acostamento_esquerdo_adequacao'] !== null ? autolinker.link(feature.properties['acostamento_esquerdo_adequacao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">solucao</th>\
+                        <td>' + (feature.properties['solucao'] !== null ? autolinker.link(feature.properties['solucao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PLATAFORMAEXISTENTE_5_0() {
+            return {
+                pane: 'pane_PLATAFORMAEXISTENTE_5',
+                opacity: 1,
+                color: 'rgba(255,238,1,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PLATAFORMAEXISTENTE_5');
+        map.getPane('pane_PLATAFORMAEXISTENTE_5').style.zIndex = 405;
+        map.getPane('pane_PLATAFORMAEXISTENTE_5').style['mix-blend-mode'] = 'normal';
+        var layer_PLATAFORMAEXISTENTE_5 = new L.geoJson(json_PLATAFORMAEXISTENTE_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PLATAFORMAEXISTENTE_5',
+            layerName: 'layer_PLATAFORMAEXISTENTE_5',
+            pane: 'pane_PLATAFORMAEXISTENTE_5',
+            onEachFeature: pop_PLATAFORMAEXISTENTE_5,
+            style: style_PLATAFORMAEXISTENTE_5_0,
+        });
+        bounds_group.addLayer(layer_PLATAFORMAEXISTENTE_5);
+        function pop_MARGINALNOVOS_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id_marginal_novos</th>\
+                        <td>' + (feature.properties['id_marginal_novos'] !== null ? autolinker.link(feature.properties['id_marginal_novos'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_trecho</th>\
+                        <td>' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">via_marginal</th>\
+                        <td>' + (feature.properties['via_marginal'] !== null ? autolinker.link(feature.properties['via_marginal'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">br</th>\
+                        <td>' + (feature.properties['br'] !== null ? autolinker.link(feature.properties['br'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">uf</th>\
+                        <td>' + (feature.properties['uf'] !== null ? autolinker.link(feature.properties['uf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km_ini</th>\
+                        <td>' + (feature.properties['km_ini'] !== null ? autolinker.link(feature.properties['km_ini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km_fim</th>\
+                        <td>' + (feature.properties['km_fim'] !== null ? autolinker.link(feature.properties['km_fim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lado</th>\
+                        <td>' + (feature.properties['lado'] !== null ? autolinker.link(feature.properties['lado'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao_necessaria</th>\
+                        <td>' + (feature.properties['extensao_necessaria'] !== null ? autolinker.link(feature.properties['extensao_necessaria'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">marginal_exist_km_fim</th>\
+                        <td>' + (feature.properties['marginal_exist_km_fim'] !== null ? autolinker.link(feature.properties['marginal_exist_km_fim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">marginal_exist_km_ini</th>\
+                        <td>' + (feature.properties['marginal_exist_km_ini'] !== null ? autolinker.link(feature.properties['marginal_exist_km_ini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">marginal_exist_extensao</th>\
+                        <td>' + (feature.properties['marginal_exist_extensao'] !== null ? autolinker.link(feature.properties['marginal_exist_extensao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao_implantacao</th>\
+                        <td>' + (feature.properties['extensao_implantacao'] !== null ? autolinker.link(feature.properties['extensao_implantacao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">observacao </th>\
+                        <td>' + (feature.properties['observacao '] !== null ? autolinker.link(feature.properties['observacao '].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">solucao</th>\
+                        <td>' + (feature.properties['solucao'] !== null ? autolinker.link(feature.properties['solucao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MARGINALNOVOS_6_0() {
+            return {
+                pane: 'pane_MARGINALNOVOS_6',
+                opacity: 1,
+                color: 'rgba(11,118,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MARGINALNOVOS_6');
+        map.getPane('pane_MARGINALNOVOS_6').style.zIndex = 406;
+        map.getPane('pane_MARGINALNOVOS_6').style['mix-blend-mode'] = 'normal';
+        var layer_MARGINALNOVOS_6 = new L.geoJson(json_MARGINALNOVOS_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MARGINALNOVOS_6',
+            layerName: 'layer_MARGINALNOVOS_6',
+            pane: 'pane_MARGINALNOVOS_6',
+            onEachFeature: pop_MARGINALNOVOS_6,
+            style: style_MARGINALNOVOS_6_0,
+        });
+        bounds_group.addLayer(layer_MARGINALNOVOS_6);
+        function pop_RAMPAEXISTENTES_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_rampa_exis'] !== null ? autolinker.link(feature.properties['id_rampa_exis'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['numero'] !== null ? autolinker.link(feature.properties['numero'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['segmeno'] !== null ? autolinker.link(feature.properties['segmeno'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['br'] !== null ? autolinker.link(feature.properties['br'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['uf'] !== null ? autolinker.link(feature.properties['uf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['km_ini'] !== null ? autolinker.link(feature.properties['km_ini'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['km_fim'] !== null ? autolinker.link(feature.properties['km_fim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extensao_rampa'] !== null ? autolinker.link(feature.properties['extensao_rampa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rampa_absoluto'] !== null ? autolinker.link(feature.properties['rampa_absoluto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['qtde_rampa_especifica'] !== null ? autolinker.link(feature.properties['qtde_rampa_especifica'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['comprimento_rampa_especifica'] !== null ? autolinker.link(feature.properties['comprimento_rampa_especifica'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['solucao'] !== null ? autolinker.link(feature.properties['solucao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RAMPAEXISTENTES_7_0() {
+            return {
+                pane: 'pane_RAMPAEXISTENTES_7',
+                opacity: 1,
+                color: 'rgba(219,30,42,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_RAMPAEXISTENTES_7');
+        map.getPane('pane_RAMPAEXISTENTES_7').style.zIndex = 407;
+        map.getPane('pane_RAMPAEXISTENTES_7').style['mix-blend-mode'] = 'normal';
+        var layer_RAMPAEXISTENTES_7 = new L.geoJson(json_RAMPAEXISTENTES_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_RAMPAEXISTENTES_7',
+            layerName: 'layer_RAMPAEXISTENTES_7',
+            pane: 'pane_RAMPAEXISTENTES_7',
+            onEachFeature: pop_RAMPAEXISTENTES_7,
+            style: style_RAMPAEXISTENTES_7_0,
+        });
+        bounds_group.addLayer(layer_RAMPAEXISTENTES_7);
+        function pop_MELHORAMENTODERAIO_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id_mel_raio</th>\
+                        <td>' + (feature.properties['id_mel_raio'] !== null ? autolinker.link(feature.properties['id_mel_raio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_trecho</th>\
+                        <td>' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">numero</th>\
+                        <td>' + (feature.properties['numero'] !== null ? autolinker.link(feature.properties['numero'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">segmento</th>\
+                        <td>' + (feature.properties['segmento'] !== null ? autolinker.link(feature.properties['segmento'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">km</th>\
+                        <td>' + (feature.properties['km'] !== null ? autolinker.link(feature.properties['km'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">tipo_relevo</th>\
+                        <td>' + (feature.properties['tipo_relevo'] !== null ? autolinker.link(feature.properties['tipo_relevo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">raio_atual</th>\
+                        <td>' + (feature.properties['raio_atual'] !== null ? autolinker.link(feature.properties['raio_atual'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">adequado_ou_nao</th>\
+                        <td>' + (feature.properties['adequado_ou_nao'] !== null ? autolinker.link(feature.properties['adequado_ou_nao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">raio_projeto</th>\
+                        <td>' + (feature.properties['raio_projeto'] !== null ? autolinker.link(feature.properties['raio_projeto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">norte</th>\
+                        <td>' + (feature.properties['norte'] !== null ? autolinker.link(feature.properties['norte'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">este</th>\
+                        <td>' + (feature.properties['este'] !== null ? autolinker.link(feature.properties['este'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">srid</th>\
+                        <td>' + (feature.properties['srid'] !== null ? autolinker.link(feature.properties['srid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">observação</th>\
+                        <td>' + (feature.properties['observação'] !== null ? autolinker.link(feature.properties['observação'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">raio_modulo</th>\
+                        <td>' + (feature.properties['raio_modulo'] !== null ? autolinker.link(feature.properties['raio_modulo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">solucao</th>\
+                        <td>' + (feature.properties['solucao'] !== null ? autolinker.link(feature.properties['solucao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MELHORAMENTODERAIO_8_0() {
+            return {
+                pane: 'pane_MELHORAMENTODERAIO_8',
+                shape: 'triangle',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,30,42,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MELHORAMENTODERAIO_8');
+        map.getPane('pane_MELHORAMENTODERAIO_8').style.zIndex = 408;
+        map.getPane('pane_MELHORAMENTODERAIO_8').style['mix-blend-mode'] = 'normal';
+        var layer_MELHORAMENTODERAIO_8 = new L.geoJson(json_MELHORAMENTODERAIO_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MELHORAMENTODERAIO_8',
+            layerName: 'layer_MELHORAMENTODERAIO_8',
+            pane: 'pane_MELHORAMENTODERAIO_8',
+            onEachFeature: pop_MELHORAMENTODERAIO_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_MELHORAMENTODERAIO_8_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_MELHORAMENTODERAIO_8);
+        function pop_OAE_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id_oae</th>\
+                        <td>' + (feature.properties['id_oae'] !== null ? autolinker.link(feature.properties['id_oae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_trecho</th>\
+                        <td>' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">num</th>\
+                        <td>' + (feature.properties['num'] !== null ? autolinker.link(feature.properties['num'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">identificacao</th>\
+                        <td>' + (feature.properties['identificacao'] !== null ? autolinker.link(feature.properties['identificacao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">seg</th>\
+                        <td>' + (feature.properties['seg'] !== null ? autolinker.link(feature.properties['seg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">br</th>\
+                        <td>' + (feature.properties['br'] !== null ? autolinker.link(feature.properties['br'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">uf</th>\
+                        <td>' + (feature.properties['uf'] !== null ? autolinker.link(feature.properties['uf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">posicao_km</th>\
+                        <td>' + (feature.properties['posicao_km'] !== null ? autolinker.link(feature.properties['posicao_km'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">extensao</th>\
+                        <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">qtde_faixas</th>\
+                        <td>' + (feature.properties['qtde_faixas'] !== null ? autolinker.link(feature.properties['qtde_faixas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">larg_faixa</th>\
+                        <td>' + (feature.properties['larg_faixa'] !== null ? autolinker.link(feature.properties['larg_faixa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">acost_larg</th>\
+                        <td>' + (feature.properties['acost_larg'] !== null ? autolinker.link(feature.properties['acost_larg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">larg_acost</th>\
+                        <td>' + (feature.properties['larg_acost'] !== null ? autolinker.link(feature.properties['larg_acost'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">guarda_corpo</th>\
+                        <td>' + (feature.properties['guarda_corpo'] !== null ? autolinker.link(feature.properties['guarda_corpo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">passa_pedestre</th>\
+                        <td>' + (feature.properties['passa_pedestre'] !== null ? autolinker.link(feature.properties['passa_pedestre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">cod_SG</th>\
+                        <td>' + (feature.properties['cod_SG'] !== null ? autolinker.link(feature.properties['cod_SG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">data_vistoria_sgo</th>\
+                        <td>' + (feature.properties['data_vistoria_sgo'] !== null ? autolinker.link(feature.properties['data_vistoria_sgo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">este</th>\
+                        <td>' + (feature.properties['este'] !== null ? autolinker.link(feature.properties['este'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">norte</th>\
+                        <td>' + (feature.properties['norte'] !== null ? autolinker.link(feature.properties['norte'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">observacao </th>\
+                        <td>' + (feature.properties['observacao '] !== null ? autolinker.link(feature.properties['observacao '].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">solucao</th>\
+                        <td>' + (feature.properties['solucao'] !== null ? autolinker.link(feature.properties['solucao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_OAE_9_0() {
+            return {
+                pane: 'pane_OAE_9',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_OAE_9');
+        map.getPane('pane_OAE_9').style.zIndex = 409;
+        map.getPane('pane_OAE_9').style['mix-blend-mode'] = 'normal';
+        var layer_OAE_9 = new L.geoJson(json_OAE_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_OAE_9',
+            layerName: 'layer_OAE_9',
+            pane: 'pane_OAE_9',
+            onEachFeature: pop_OAE_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_OAE_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_OAE_9);
+        function pop_INTERSEES_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id_intersecoes</th>\
+                        <td>' + (feature.properties['id_intersecoes'] !== null ? autolinker.link(feature.properties['id_intersecoes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_trecho</th>\
+                        <td>' + (feature.properties['id_trecho'] !== null ? autolinker.link(feature.properties['id_trecho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">solucao</th>\
+                        <td>' + (feature.properties['solucao'] !== null ? autolinker.link(feature.properties['solucao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">numero</th>\
+                        <td>' + (feature.properties['numero'] !== null ? autolinker.link(feature.properties['numero'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">descricao</th>\
+                        <td>' + (feature.properties['descricao'] !== null ? autolinker.link(feature.properties['descricao'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">seg</th>\
+                        <td>' + (feature.properties['seg'] !== null ? autolinker.link(feature.properties['seg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">posicao_km</th>\
+                        <td>' + (feature.properties['posicao_km'] !== null ? autolinker.link(feature.properties['posicao_km'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">tipologia_existente</th>\
+                        <td>' + (feature.properties['tipologia_existente'] !== null ? autolinker.link(feature.properties['tipologia_existente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">este</th>\
+                        <td>' + (feature.properties['este'] !== null ? autolinker.link(feature.properties['este'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">norte</th>\
+                        <td>' + (feature.properties['norte'] !== null ? autolinker.link(feature.properties['norte'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">srid</th>\
+                        <td>' + (feature.properties['srid'] !== null ? autolinker.link(feature.properties['srid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">tipologia_proposta</th>\
+                        <td>' + (feature.properties['tipologia_proposta'] !== null ? autolinker.link(feature.properties['tipologia_proposta'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_INTERSEES_10_0() {
+            return {
+                pane: 'pane_INTERSEES_10',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,30,42,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_INTERSEES_10');
+        map.getPane('pane_INTERSEES_10').style.zIndex = 410;
+        map.getPane('pane_INTERSEES_10').style['mix-blend-mode'] = 'normal';
+        var layer_INTERSEES_10 = new L.geoJson(json_INTERSEES_10, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_INTERSEES_10',
+            layerName: 'layer_INTERSEES_10',
+            pane: 'pane_INTERSEES_10',
+            onEachFeature: pop_INTERSEES_10,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_INTERSEES_10_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_INTERSEES_10);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/INTERSEES_10.png" /> INTERSEÇÕES': layer_INTERSEES_10,'<img src="legend/OAE_9.png" /> OAE': layer_OAE_9,'<img src="legend/MELHORAMENTODERAIO_8.png" /> MELHORAMENTO DE RAIO': layer_MELHORAMENTODERAIO_8,'<img src="legend/RAMPAEXISTENTES_7.png" /> RAMPA - EXISTENTES': layer_RAMPAEXISTENTES_7,'<img src="legend/MARGINALNOVOS_6.png" /> MARGINAL - NOVOS': layer_MARGINALNOVOS_6,'<img src="legend/PLATAFORMAEXISTENTE_5.png" /> PLATAFORMA EXISTENTE': layer_PLATAFORMAEXISTENTE_5,'<img src="legend/MARGINALEXISTENTES_4.png" /> MARGINAL - EXISTENTES': layer_MARGINALEXISTENTES_4,'<img src="legend/FAIXAADICIONAL_3.png" /> FAIXA ADICIONAL': layer_FAIXAADICIONAL_3,'SEGMENTOS<br /><table><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg010.png" /></td><td>Seg-01</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg021.png" /></td><td>Seg-02</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg032.png" /></td><td>Seg-03</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg043.png" /></td><td>Seg-04</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg054.png" /></td><td>Seg-05</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg065.png" /></td><td>Seg-06</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg076.png" /></td><td>Seg-07</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg087.png" /></td><td>Seg-08</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg098.png" /></td><td>Seg-09</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg109.png" /></td><td>Seg-10</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg1110.png" /></td><td>Seg-11</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg1211.png" /></td><td>Seg-12</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg1312.png" /></td><td>Seg-13</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg14A13.png" /></td><td>Seg-14-A</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg14B14.png" /></td><td>Seg-14-B</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg1515.png" /></td><td>Seg-15</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg16A16.png" /></td><td>Seg-16-A</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg16B17.png" /></td><td>Seg-16-B</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg1718.png" /></td><td>Seg-17</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg1819.png" /></td><td>Seg-18</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg1920.png" /></td><td>Seg-19</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg2021.png" /></td><td>Seg-20</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg21A22.png" /></td><td>Seg-21-A</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg21B23.png" /></td><td>Seg-21-B</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg2224.png" /></td><td>Seg-22</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg2325.png" /></td><td>Seg-23</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg2426.png" /></td><td>Seg-24</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg2527.png" /></td><td>Seg-25</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg26A28.png" /></td><td>Seg-26-A</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg26B29.png" /></td><td>Seg-26-B</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg2730.png" /></td><td>Seg-27</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg2831.png" /></td><td>Seg-28</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg2932.png" /></td><td>Seg-29</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg30A33.png" /></td><td>Seg-30-A</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg30B34.png" /></td><td>Seg-30-B</td></tr><tr><td style="text-align: center;"><img src="legend/SEGMENTOS_2_Seg3135.png" /></td><td>Seg-31</td></tr></table>': layer_SEGMENTOS_2,'ID TRECHO<br /><table><tr><td style="text-align: center;"><img src="legend/IDTRECHO_1_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/IDTRECHO_1_21.png" /></td><td>2</td></tr><tr><td style="text-align: center;"><img src="legend/IDTRECHO_1_32.png" /></td><td>3</td></tr><tr><td style="text-align: center;"><img src="legend/IDTRECHO_1_43.png" /></td><td>4</td></tr></table>': layer_IDTRECHO_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
